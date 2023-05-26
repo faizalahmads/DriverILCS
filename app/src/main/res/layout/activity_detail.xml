@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Detail">
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="187dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:text="Detail"
+        android:textSize="35sp"
+        android:textColor="#006DB2"
+        android:textStyle="bold"
+        android:gravity="top" />
+
+    <!-- Rectangle 12 -->
+    <View
+        android:id="@+id/rectangle_1"
+        android:layout_width="226dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/frame_hitam"
+        android:layout_centerInParent="true"
+        />
+    <!-- image 2 -->
+    <View
+        android:id="@+id/image_2"
+        android:layout_width="200dp"
+        android:layout_height="105.67dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="118dp"
+        android:background="@drawable/image_1"
+        />
+
+    <TextView
+        android:id="@+id/nama_driver"
+        android:layout_width="199dp"
+        android:layout_height="54dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="105dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="242dp"
+        android:text="Nama Driver    :"
+        android:gravity="top"
+        android:textColor="#000000"
+        android:textSize="17dp"
+        />
+
+    <TextView
+        android:id="@+id/no_kendaraan"
+        android:layout_width="199dp"
+        android:layout_height="54dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="105dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="265dp"
+        android:text="No Kendaraan :"
+        android:gravity="top"
+        android:textColor="#000000"
+        android:textSize="17dp"
+        />
+
+    <TextView
+        android:id="@+id/posisi"
+        android:layout_width="199dp"
+        android:layout_height="54dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="105dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="290dp"
+        android:text="Posisi               :"
+        android:gravity="top"
+        android:textColor="#000000"
+        android:textSize="17dp"
+        />
+
+    <TextView
+        android:id="@+id/tanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="tanggal"
+        android:textSize="17dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="330dp"/>
+
+    <!-- Tabel -->
+    <View
+        android:id="@+id/tabel"
+        android:layout_width="335dp"
+        android:layout_height="117dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="362dp"
+        android:background="@drawable/frame_kotakhitam"
+        />
+
+</RelativeLayout>

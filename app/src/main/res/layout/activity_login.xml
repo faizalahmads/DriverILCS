@@ -44,11 +44,9 @@
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="15dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
 
         <EditText
             android:layout_width="match_parent"
@@ -56,22 +54,18 @@
             android:background="@drawable/form"
             android:drawableStart="@drawable/user"
             android:hint="Masukkan Username ...."
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/key"
-            android:hint="Masukkan Password ...." />
+            android:hint="Masukkan Password ...."
+            android:layout_marginTop="15dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
 
         <TextView
             android:id="@+id/regis"
@@ -80,20 +74,20 @@
             android:gravity="right"
             android:paddingLeft="10dp"
             android:text="I don't have any account"
-            android:textColor="@color/white" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp" />
 
         <Button
             android:id="@+id/login1"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="#FFFFFF"
             android:backgroundTint="#A2988E"
             android:text="Login"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:layout_marginTop="15dp" />
+
     </LinearLayout>
 
     <View

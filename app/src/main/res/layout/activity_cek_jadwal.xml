@@ -1,9 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CekJadwal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/cekjadwal"
+        android:layout_width="187dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:text="Cek Jadwal"
+        android:textSize="35sp"
+        android:textColor="#006DB2"
+        android:textStyle="bold"
+        android:gravity="top" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="70dp"
+        android:text="Logout"
+        android:textColor="#A10608"
+        android:background="@drawable/btn_logout"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="160sp"
+        android:src="@drawable/cekjadwal"
+        android:layout_marginTop="135dp" />
+
+    <!-- Data Driver -->
+    <View
+        android:id="@+id/data_driver"
+        android:layout_width="362dp"
+        android:layout_height="106dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="23dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="327dp"
+        android:background="@drawable/frame_hitam" />
+    <ImageView
+        android:id="@+id/image_1"
+        android:layout_width="100dp"
+        android:layout_height="62.79dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="27dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="344dp"
+        android:background="@drawable/image_1" />
+    <TextView
+        android:id="@+id/nama_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="138dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="338dp"
+        android:text="Nama Driver : "
+        android:gravity="top"
+        android:lineHeight="15dp"
+        android:textColor="#000000" />
+    <TextView
+        android:id="@+id/no_kendaraan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="138dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="358dp"
+        android:text="No Kendaraan : "
+        android:gravity="top"
+        android:lineHeight="15dp"
+        android:textColor="#000000" />
+    <TextView
+        android:id="@+id/posisi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="138dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="378dp"
+        android:text="Posisi :"
+        android:gravity="top"
+        android:lineHeight="15dp"
+        android:textColor="#000000" />
+    <!-- btn Detail -->
+    <Button
+        android:id="@+id/btn_detail"
+        android:layout_width="69dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="156dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="404dp"
+        android:background="#1EACAC"
+        android:text="Detail"
+        android:textColor="#FFFFFF"
+        />
+    <!-- btn Pesan -->
+    <Button
+        android:id="@+id/btn_pesan"
+        android:layout_width="69dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="256dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="404dp"
+        android:background="#C04A07"
+        android:text="Pesan"
+        android:textColor="#FFFFFF"
+        />
+
+
+</RelativeLayout>

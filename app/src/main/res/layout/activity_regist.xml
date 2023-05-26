@@ -48,48 +48,38 @@
             android:textAlignment="center"
             android:text="Register"
             android:textColor="#FFFFFF"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
         <EditText
             android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/nama"
-            android:hint="Masukkan Nama ...."/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
+            android:hint="Masukkan Nama ...."
+            android:layout_marginTop="15dp"/>
         <EditText
             android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/divisi"
-            android:hint="Masukkan Divisi ...."/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
+            android:hint="Masukkan Divisi ...."
+            android:layout_marginTop="15dp"/>
         <EditText
             android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/nipp"
-            android:hint="Masukkan NIP ...."/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
+            android:hint="Masukkan NIP ...."
+            android:layout_marginTop="15dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/key"
-            android:hint="Masukkan Password ...."/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
+            android:hint="Masukkan Password ...."
+            android:layout_marginTop="15dp"/>
+
         <TextView
             android:id="@+id/regis"
             android:layout_width="match_parent"
@@ -97,11 +87,9 @@
             android:gravity="right"
             android:paddingLeft="10dp"
             android:text="I have any account"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"></RelativeLayout>
         <Button
             android:id="@+id/logres"
             android:layout_width="100dp"
@@ -109,6 +97,7 @@
             android:text="Login"
             android:textAllCaps="false"
             android:layout_gravity="center"
+            android:textColor="#FFFFFF"
             android:backgroundTint="#A2988E"/>
     </LinearLayout>
 

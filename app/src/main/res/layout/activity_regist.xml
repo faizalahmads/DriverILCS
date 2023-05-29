@@ -49,6 +49,7 @@
             android:text="Register"
             android:textColor="#FFFFFF"/>
         <EditText
+            android:id="@+id/etNama"
             android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -57,6 +58,7 @@
             android:hint="Masukkan Nama ...."
             android:layout_marginTop="15dp"/>
         <EditText
+            android:id="@+id/etDivisi"
             android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -65,6 +67,7 @@
             android:hint="Masukkan Divisi ...."
             android:layout_marginTop="15dp"/>
         <EditText
+            android:id="@+id/etNip"
             android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -73,6 +76,7 @@
             android:hint="Masukkan NIP ...."
             android:layout_marginTop="15dp"/>
         <EditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/form"
@@ -81,7 +85,7 @@
             android:layout_marginTop="15dp"/>
 
         <TextView
-            android:id="@+id/regis"
+            android:id="@+id/teLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -91,7 +95,7 @@
             android:layout_marginTop="15dp"/>
 
         <Button
-            android:id="@+id/logres"
+            android:id="@+id/btnRegist"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Login"

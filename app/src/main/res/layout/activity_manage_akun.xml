@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManageAkun">
+
+    <TextView
+        android:layout_width="187dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:text="User"
+        android:textSize="35sp"
+        android:textColor="#006DB2"
+        android:textStyle="bold"
+        android:gravity="top" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="70dp"
+        android:text="Logout"
+        android:textColor="#A10608"
+        android:background="@drawable/btn_logout"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="160sp"
+        android:src="@drawable/imguser"
+        android:layout_marginTop="135dp" />
+
+    <Button
+        android:id="@+id/btnTambahUser"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="320dp"
+        android:text="Tambah"
+        android:backgroundTint="#006CB1"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/btn_form"/>
+
+    <HorizontalScrollView
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:background="@drawable/stroke_hitam"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="370dp">
+        <TableLayout
+            android:id="@+id/tablelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:id="@+id/row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/stroke_hitam">
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5sp"
+                    android:text="No"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35sp"
+                    android:text="Nama"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:text="Divisi"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:text="Role"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+            </TableRow>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ListView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#000000"
+                    android:dividerHeight="2dp"
+                    android:layout_marginTop="40dp" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </TableLayout>
+    </HorizontalScrollView>
+
+</RelativeLayout>

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">DriverILCStest</string>
+    <string-array name="role_array">
+        <item>Admin</item>
+        <item>Driver</item>
+        <item>Karyawan</item>
+    </string-array>
+    <string-array name="role_kendaraan">
+        <item>Direksi</item>
+        <item>Komisaris</item>
+        <item>Karyawan</item>
+    </string-array>
 </resources>

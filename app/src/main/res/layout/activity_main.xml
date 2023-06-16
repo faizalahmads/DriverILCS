@@ -51,21 +51,24 @@
 
 
         <EditText
+            android:id="@+id/etNip"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/user"
-            android:hint="Masukkan Username ...."
+            android:hint="Masukkan NIP ...."
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp" />
 
 
         <EditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/key"
             android:hint="Masukkan Password ...."
+            android:inputType="textPassword"
             android:layout_marginTop="15dp" />
 
 
@@ -80,7 +83,7 @@
             android:layout_marginTop="15dp" />
 
         <Button
-            android:id="@+id/login1"
+            android:id="@+id/btnLogin"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -33,82 +33,85 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="@drawable/rectangle_1"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_marginTop="270dp"
-        android:orientation="vertical"
         android:layout_weight="1"
+        android:background="@drawable/rectangle_1"
+        android:orientation="vertical"
         android:padding="15dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:textAlignment="center"
             android:text="Register"
-            android:textColor="#FFFFFF"/>
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/etNama"
-            android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/nama"
             android:hint="Masukkan Nama ...."
-            android:layout_marginTop="15dp"/>
+            android:paddingLeft="10dp" />
+
         <EditText
             android:id="@+id/etDivisi"
-            android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/divisi"
             android:hint="Masukkan Divisi ...."
-            android:layout_marginTop="15dp"/>
+            android:paddingLeft="10dp" />
+
         <EditText
             android:id="@+id/etNip"
-            android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/nipp"
             android:hint="Masukkan NIP ...."
-            android:layout_marginTop="15dp"/>
+            android:paddingLeft="10dp" />
+
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/form"
             android:drawableStart="@drawable/key"
             android:hint="Masukkan Password ...."
-            android:layout_marginTop="15dp"/>
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/teLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:gravity="right"
             android:paddingLeft="10dp"
             android:text="I have any account"
-            android:textColor="@color/white"
-            android:layout_marginTop="15dp"/>
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnRegist"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:textAllCaps="false"
             android:layout_gravity="center"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#A2988E"/>
+            android:backgroundTint="#A2988E"
+            android:text="Registrasi"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
     </LinearLayout>
 
-    <View
-        android:id="@+id/rectangle_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="700dp"
-        android:background="@drawable/rectangle_2"></View>
+
+
 </RelativeLayout>

@@ -3,15 +3,15 @@ package com.faizalas.dev.driverilcstest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import android.os.AsyncTask;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,53 +23,54 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class Regist extends AppCompatActivity {
+public class TambahUser extends AppCompatActivity {
 
     EditText Etnama, Etdiv, Etnip, Etpassword;
-    TextView login;
-    Button regist;
+    Button TambahUser;
+    Spinner spinnerRole;
 
-    String PHP_URL = "http://192.168.1.26/driverILCS/regist.php";
+    String PHP_URL = "http://10.90.132.69/driverILCS/tambahuser.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regist);
+        setContentView(R.layout.activity_tambah_user);
 
-        Etnama = findViewById(R.id.etNama);
-        Etdiv = findViewById(R.id.etDivisi);
-        Etnip = findViewById(R.id.etNip);
-        Etpassword = findViewById(R.id.etPassword);
-        login = findViewById(R.id.teLogin);
-        regist = findViewById(R.id.btnRegist);
+        Etnama = findViewById(R.id.etNamaUser);
+        Etdiv = findViewById(R.id.etDivisiUser);
+        Etnip = findViewById(R.id.etNipUser);
+        Etpassword = findViewById(R.id.etPasswordUser);
+        TambahUser = findViewById(R.id.btnTambahUser);
+        spinnerRole = findViewById(R.id.spinnerRole);
 
         final Context context = this;
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
-            }
-        });
+        // Ambil array role dari strings.xml
+        String[] roleArray = getResources().getStringArray(R.array.role_array);
 
-        regist.setOnClickListener(new View.OnClickListener() {
+        // Buat adapter untuk spinner
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleArray);
+        roleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Atur adapter pada spinnerRole
+        spinnerRole.setAdapter(roleAdapter);
+
+        TambahUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nama = Etnama.getText().toString().trim();
                 String divisi = Etdiv.getText().toString().trim();
                 String nip = Etnip.getText().toString().trim();
                 String password = Etpassword.getText().toString().trim();
-                String role = "3";
+                String role = String.valueOf(spinnerRole.getSelectedItemPosition() + 1);
 
-                RegisterUserTask task = new RegisterUserTask();
+                TambahUserTask task = new TambahUserTask();
                 task.execute(nama, divisi, nip, password, role);
-
             }
         });
     }
 
-    private class RegisterUserTask extends AsyncTask<String, Void, String> {
+    private class TambahUserTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -81,7 +82,7 @@ public class Regist extends AppCompatActivity {
 
             try {
                 // Membuat koneksi HTTP
-                URL url = new URL(PHP_URL + "?role=" + role);
+                URL url = new URL(PHP_URL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
@@ -92,7 +93,8 @@ public class Regist extends AppCompatActivity {
                 String data = URLEncoder.encode("nama", "UTF-8") + "=" + URLEncoder.encode(nama, "UTF-8") +
                         "&" + URLEncoder.encode("divisi", "UTF-8") + "=" + URLEncoder.encode(divisi, "UTF-8") +
                         "&" + URLEncoder.encode("nip", "UTF-8") + "=" + URLEncoder.encode(nip, "UTF-8") +
-                        "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
+                        "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") +
+                        "&" + URLEncoder.encode("role", "UTF-8") + "=" + URLEncoder.encode(role, "UTF-8");
                 writer.write(data);
                 writer.flush();
                 writer.close();
@@ -123,9 +125,9 @@ public class Regist extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                Toast.makeText(Regist.this, result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(TambahUser.this, result, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(Regist.this, "Registrasi gagal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TambahUser.this, "Tambah Gagal", Toast.LENGTH_SHORT).show();
             }
         }
     }

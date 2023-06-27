@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,22 +26,21 @@ import java.net.URLEncoder;
 
 public class TambahUser extends AppCompatActivity {
 
-    EditText Etnama, Etdiv, Etnip, Etpassword;
-    Button TambahUser;
+    EditText etNama, etDivisi, etNip, etPassword, etConfirmPassword;
+    Button btnTambahUser;
     Spinner spinnerRole;
-
-    String PHP_URL = "http://10.90.132.69/driverILCS/tambahuser.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_user);
 
-        Etnama = findViewById(R.id.etNamaUser);
-        Etdiv = findViewById(R.id.etDivisiUser);
-        Etnip = findViewById(R.id.etNipUser);
-        Etpassword = findViewById(R.id.etPasswordUser);
-        TambahUser = findViewById(R.id.btnTambahUser);
+        etNama = findViewById(R.id.etNamaUser);
+        etDivisi = findViewById(R.id.etDivisiUser);
+        etNip = findViewById(R.id.etNipUser);
+        etPassword = findViewById(R.id.etPasswordUser);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        btnTambahUser = findViewById(R.id.btnTambahUser);
         spinnerRole = findViewById(R.id.spinnerRole);
 
         final Context context = this;
@@ -55,17 +55,27 @@ public class TambahUser extends AppCompatActivity {
         // Atur adapter pada spinnerRole
         spinnerRole.setAdapter(roleAdapter);
 
-        TambahUser.setOnClickListener(new View.OnClickListener() {
+        btnTambahUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nama = Etnama.getText().toString().trim();
-                String divisi = Etdiv.getText().toString().trim();
-                String nip = Etnip.getText().toString().trim();
-                String password = Etpassword.getText().toString().trim();
+                String nama = etNama.getText().toString().trim();
+                String divisi = etDivisi.getText().toString().trim();
+                String nip = etNip.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+                String confirmPassword = etConfirmPassword.getText().toString().trim();
                 String role = String.valueOf(spinnerRole.getSelectedItemPosition() + 1);
 
-                TambahUserTask task = new TambahUserTask();
-                task.execute(nama, divisi, nip, password, role);
+                // Validasi semua kolom terisi
+                if (TextUtils.isEmpty(nama) || TextUtils.isEmpty(divisi) ||
+                        TextUtils.isEmpty(nip) || TextUtils.isEmpty(password) ||
+                        TextUtils.isEmpty(confirmPassword)) {
+                    Toast.makeText(TambahUser.this, "Harap isi semua kolom", Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(confirmPassword)) {
+                    Toast.makeText(TambahUser.this, "Password dan konfirmasi password tidak cocok", Toast.LENGTH_SHORT).show();
+                } else {
+                    TambahUserTask task = new TambahUserTask();
+                    task.execute(nama, divisi, nip, password, role);
+                }
             }
         });
     }
@@ -82,7 +92,7 @@ public class TambahUser extends AppCompatActivity {
 
             try {
                 // Membuat koneksi HTTP
-                URL url = new URL(PHP_URL);
+                URL url = new URL(Urls.TAMBAH_USR_URL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);

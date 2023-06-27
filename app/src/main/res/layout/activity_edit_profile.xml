@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardAdmin">
+    tools:context=".EditProfile">
 
     <TextView
-        android:id="@+id/tvTambahUser"
+        android:id="@+id/edituser"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="14dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:text="Tambah User"
+        android:text="Edit User"
         android:textSize="35sp"
         android:textColor="#006DB2"
         android:textStyle="bold"
@@ -34,7 +34,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="160sp"
-        android:src="@drawable/adduser"
+        android:src="@drawable/edituser"
         android:layout_marginTop="135dp"
         />
 
@@ -46,8 +46,8 @@
         android:orientation="vertical"
         android:padding="15dp">
 
-        <EditText
-            android:id="@+id/etNamaUser"
+        <TextView
+            android:id="@+id/etNamaEdit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
@@ -56,8 +56,8 @@
             android:gravity="center"/>
 
 
-            <EditText
-            android:id="@+id/etDivisiUser"
+        <TextView
+            android:id="@+id/etDivisiEdit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
@@ -66,8 +66,8 @@
             android:gravity="center"/>
 
 
-            <EditText
-            android:id="@+id/etNipUser"
+        <TextView
+            android:id="@+id/etNipEdit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
@@ -76,41 +76,15 @@
             android:gravity="center"/>
 
 
-        <EditText
-            android:id="@+id/etPasswordUser"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/frame_hitam"
-            android:hint="Masukkan Password ...."
-            android:inputType="numberPassword"
-            android:gravity="center"/>
-
-        <EditText
-            android:id="@+id/etConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/frame_hitam"
-            android:hint="Masukkan Konfirmasi Password ...."
-            android:inputType="numberPassword"
-            android:gravity="center"/>
-
-        <Spinner
-            android:id="@+id/spinnerRole"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/frame_hitam" />
 
         <Button
-            android:id="@+id/btnTambahUser"
-            android:layout_width="100dp"
+            android:id="@+id/btnGantiPassword"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_gravity="center"
             android:backgroundTint="#0972B4"
-            android:text="Tambah"
+            android:text="Ganti Password"
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />
 

@@ -15,8 +15,8 @@ public class DashboardUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_user);
-        profileUser = findViewById(R.id.profileUser);
-        cekjadwalUser = findViewById(R.id.cekjadwalUser);
+        profileUser = findViewById(R.id.btnProfile);
+        cekjadwalUser = findViewById(R.id.btnCekJadwal);
         btnLogout = findViewById(R.id.btnLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -26,6 +26,22 @@ public class DashboardUser extends AppCompatActivity {
                 // Contoh: Membersihkan sesi dan mengarahkan pengguna ke halaman login
                 clearSession();
                 navigateToLogin();
+            }
+        });
+
+        profileUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), EditProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        cekjadwalUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CekJadwal.class);
+                startActivity(intent);
             }
         });
     }

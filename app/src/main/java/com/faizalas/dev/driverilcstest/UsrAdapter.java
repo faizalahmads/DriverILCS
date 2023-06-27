@@ -36,6 +36,7 @@ public class UsrAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
+        TextView number;
         TextView id;
         TextView nama;
         TextView divisi;
@@ -50,6 +51,7 @@ public class UsrAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list, parent, false);
 
             viewHolder = new ViewHolder();
+            viewHolder.number = convertView.findViewById(R.id.number);
             viewHolder.id = convertView.findViewById(R.id.id);
             viewHolder.nama = convertView.findViewById(R.id.nama);
             viewHolder.divisi = convertView.findViewById(R.id.divisi);
@@ -62,25 +64,13 @@ public class UsrAdapter extends BaseAdapter {
 
         Data data = items.get(position);
 
+        viewHolder.number.setText(String.valueOf(position + 1));
         viewHolder.id.setText(data.getId());
         viewHolder.nama.setText(data.getNama());
         viewHolder.divisi.setText(data.getDivisi());
-        viewHolder.role.setText(getRoleText(data.getRole()));
+        viewHolder.role.setText(data.getRole());
 
         return convertView;
     }
-
-    private String getRoleText(String role) {
-        switch (role) {
-            case "1":
-                return "admin";
-            case "2":
-                return "driver";
-            case "3":
-                return "karyawan";
-            default:
-                return "";
-        }
-    }
-
 }
+

@@ -25,11 +25,9 @@ import java.net.URLEncoder;
 
 public class Regist extends AppCompatActivity {
 
-    EditText Etnama, Etdiv, Etnip, Etpassword;
+    EditText Etnama, Etdiv, Etnip, Etpassword, ETconfirmpass;
     TextView login;
     Button regist;
-
-    String PHP_URL = "http://192.168.1.26/driverILCS/regist.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +38,7 @@ public class Regist extends AppCompatActivity {
         Etdiv = findViewById(R.id.etDivisi);
         Etnip = findViewById(R.id.etNip);
         Etpassword = findViewById(R.id.etPassword);
+        ETconfirmpass = findViewById(R.id.etConfirmPassword);
         login = findViewById(R.id.teLogin);
         regist = findViewById(R.id.btnRegist);
 
@@ -60,11 +59,18 @@ public class Regist extends AppCompatActivity {
                 String divisi = Etdiv.getText().toString().trim();
                 String nip = Etnip.getText().toString().trim();
                 String password = Etpassword.getText().toString().trim();
-                String role = "3";
+                String confirmPassword = ETconfirmpass.getText().toString().trim();
+                String role = "2";
 
-                RegisterUserTask task = new RegisterUserTask();
-                task.execute(nama, divisi, nip, password, role);
-
+                // Memeriksa apakah semua kolom telah diisi
+                if (nama.isEmpty() || divisi.isEmpty() || nip.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(Regist.this, "Harap isi semua kolom", Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(confirmPassword)) {
+                    Toast.makeText(Regist.this, "Konfirmasi password tidak cocok", Toast.LENGTH_SHORT).show();
+                } else {
+                    RegisterUserTask task = new RegisterUserTask();
+                    task.execute(nama, divisi, nip, password, role);
+                }
             }
         });
     }
@@ -81,7 +87,7 @@ public class Regist extends AppCompatActivity {
 
             try {
                 // Membuat koneksi HTTP
-                URL url = new URL(PHP_URL + "?role=" + role);
+                URL url = new URL(Urls.REGIST_URL + "?role=" + role);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);

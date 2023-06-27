@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -41,19 +42,15 @@ import java.util.Map;
 
 public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    String selectURL = "http://10.90.132.69/driverILCS/select.php";
-    String deleteURL = "http://10.90.132.69/driverILCS/delete.php";
-    String editURL = "http://10.90.132.69/driverILCS/edit.php";
-    String insertURL = "http://10.90.132.69/driverILCS/editinsert.php";
-
 
     ListView list;
     SwipeRefreshLayout swipe;
     List<Data> itemList = new ArrayList<Data>();
     UsrAdapter adapter;
     LayoutInflater inflater;
-    EditText etid, etnama, etdivisi, etnip;
-    String vid, vnama, vdivisi, vnip;
+    TextView tvid, tvnama, tvdivisi, tvnip;
+    EditText etpassword;
+    String vid, vnama, vdivisi, vnip, vpassword;
     Button btnLogout, btnTambahUser;
 
     @Override
@@ -113,7 +110,7 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
     }
 
     public void ubahData(String id) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, editURL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.EDIT_USR_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -124,8 +121,9 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
                             String namax = jObj.getString("nama");
                             String divisix = jObj.getString("divisi");
                             String nipx = jObj.getString("nip");
+                            String passwordx = jObj.getString("password");
 
-                            dialogForm(idx,namax,divisix,nipx, "UPDATE");
+                            dialogForm(idx,namax,divisix,nipx,passwordx, "UPDATE");
 
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -151,7 +149,7 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
         queue.add(stringRequest);
     }
 
-    public void dialogForm(String id, String nama, String divisi, String nip, String button){
+    public void dialogForm(String id, String nama, String divisi, String nip, String password, String button){
         AlertDialog.Builder dialogForm = new AlertDialog.Builder(ManageAkun.this);
         inflater = getLayoutInflater();
         View viewDialog =  inflater.inflate(R.layout.form_edit_user, null);
@@ -160,30 +158,34 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
         dialogForm.setTitle("EDIT USER");
 
 
-        etid = viewDialog.findViewById(R.id.etIdEdit);
-        etnama = viewDialog.findViewById(R.id.etNamaEdit);
-        etdivisi = viewDialog.findViewById(R.id.etDivisiEdit);
-        etnip = viewDialog.findViewById(R.id.etNipEdit);
+        tvid = viewDialog.findViewById(R.id.tvIdEdit);
+        tvnama = viewDialog.findViewById(R.id.tvNamaEdit);
+        tvdivisi = viewDialog.findViewById(R.id.tvDivisiEdit);
+        tvnip = viewDialog.findViewById(R.id.tvNipEdit);
+        etpassword = viewDialog.findViewById(R.id.etPasswordEdit);
 
         if (id.isEmpty()){
-            etid.setText(null);
-            etnama.setText(null);
-            etdivisi.setText(null);
-            etnip.setText(null);
+            tvid.setText(null);
+            tvnama.setText(null);
+            tvdivisi.setText(null);
+            tvnip.setText(null);
+            etpassword.setText(null);
         } else {
-            etid.setText(id);
-            etnama.setText(nama);
-            etdivisi.setText(divisi);
-            etnip.setText(nip);
+            tvid.setText(id);
+            tvnama.setText(nama);
+            tvdivisi.setText(divisi);
+            tvnip.setText(nip);
+            etpassword.setText(null);
         }
 
         dialogForm.setPositiveButton(button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                vid = etid.getText().toString();
-                vnama = etnama.getText().toString();
-                vdivisi = etdivisi.getText().toString();
-                vnip = etnip.getText().toString();
+                vid = tvid.getText().toString();
+                vnama = tvnama.getText().toString();
+                vdivisi = tvdivisi.getText().toString();
+                vnip = tvnip.getText().toString();
+                vpassword = etpassword.getText().toString();
 
                 simpan();
                 dialog.dismiss();
@@ -193,17 +195,18 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                etid.setText(null);
-                etnama.setText(null);
-                etdivisi.setText(null);
-                etnip.setText(null);
+                tvid.setText(null);
+                tvnama.setText(null);
+                tvdivisi.setText(null);
+                tvnip.setText(null);
+                etpassword.setText(null);
             }
         });
         dialogForm.show();
     }
 
     public void simpan(){
-        StringRequest stringRequest =  new StringRequest(Request.Method.POST, insertURL,
+        StringRequest stringRequest =  new StringRequest(Request.Method.POST, Urls.INSERT_USR_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -226,12 +229,14 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
                     params.put("nama", vnama);
                     params.put("divisi", vdivisi);
                     params.put("nip", vnip);
+                    params.put("password", vpassword);
                     return params;
                 } else {
                     params.put("id", vid);
                     params.put("nama", vnama);
                     params.put("divisi", vdivisi);
                     params.put("nip", vnip);
+                    params.put("password", vpassword);
                     return params;
                 }
             }
@@ -241,7 +246,7 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
     }
 
     public void hapusData(String id){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, deleteURL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.DELETE_USR_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -280,7 +285,7 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
         swipe.setRefreshing(true);
 
         // Request to fetch data from select.php
-        JsonArrayRequest jArr = new JsonArrayRequest(Request.Method.GET, selectURL, null,
+        JsonArrayRequest jArr = new JsonArrayRequest(Request.Method.GET, Urls.TAMPILAN_USR_URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -291,9 +296,22 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
                                 String id = obj.getString("id");
                                 String nama = obj.getString("nama");
                                 String divisi = obj.getString("divisi");
-                                String role = obj.getString("role");
+                                int role = obj.getInt("role");
 
-                                Data item = new Data(id, nama, divisi, role);
+                                String roleString;
+                                switch (role) {
+                                    case 1:
+                                        roleString = "Admin";
+                                        break;
+                                    case 2:
+                                        roleString = "Karyawan";
+                                        break;
+                                    default:
+                                        roleString = "Unknown";
+                                        break;
+                                }
+
+                                Data item = new Data(id, nama, divisi, roleString);
                                 itemList.add(item);
                             }
 
@@ -315,4 +333,5 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         mRequestQueue.add(jArr);
     }
+
 }

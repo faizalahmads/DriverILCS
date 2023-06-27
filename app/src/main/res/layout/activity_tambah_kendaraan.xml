@@ -37,61 +37,104 @@
         android:layout_marginTop="135dp"
         />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="300dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <EditText
-            android:id="@+id/etNomorKendaraan"
+        android:layout_marginTop="300dp">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/frame_hitam"
-            android:hint="Masukkan Nomor Kendaraan ...."
-            android:gravity="center"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <EditText
+                android:id="@+id/etNamaDriver"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_hitam"
+                android:hint="Masukkan Nama Driver ...."
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/etNomorPlat"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_hitam"
+                android:hint="Masukkan Nomor Plat ...."
+                android:gravity="center"/>
 
 
-        <EditText
-            android:id="@+id/etMerk"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/frame_hitam"
-            android:hint="Masukkan Merk ...."
-            android:gravity="center"/>
+            <EditText
+                android:id="@+id/etMerk"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_hitam"
+                android:hint="Masukkan Merk ...."
+                android:gravity="center"/>
 
 
-        <EditText
-            android:id="@+id/etTanggalSerive"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/frame_hitam"
-            android:hint="Masukkan Tanggal Service ...."
-            android:gravity="center"/>
+            <EditText
+                android:id="@+id/etTanggalService"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_hitam"
+                android:hint="Masukkan Tanggal Service ...."
+                android:inputType="date"
+                android:gravity="center"/>
 
-        <Spinner
-            android:id="@+id/spinnerRole"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/frame_hitam" />
+            <EditText
+                android:id="@+id/etNipDriver"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_hitam"
+                android:hint="Masukkan NIP ...."
+                android:gravity="center"/>
 
-        <Button
-            android:id="@+id/btnTambahUser"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center"
-            android:backgroundTint="#0972B4"
-            android:text="Tambah"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            <EditText
+                android:id="@+id/etPasswordDriver"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_hitam"
+                android:hint="Masukkan Password ...."
+                android:inputType="textPassword"
+                android:gravity="center"/>
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_hitam"
+                android:hint="Masukkan Konfirmasi Password ...."
+                android:inputType="textPassword"
+                android:gravity="center"/>
+
+            <Spinner
+                android:id="@+id/spinnerRole"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_hitam" />
+
+            <Button
+                android:id="@+id/btnTambahKendaraan"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#0972B4"
+                android:text="Tambah"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

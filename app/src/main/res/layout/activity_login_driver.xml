@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clipToOutline="true"
     android:background="@drawable/login"
-    tools:context=".MainActivity">
+    tools:context=".LoginDriver">
 
     <ImageView
         android:layout_width="match_parent"
@@ -31,12 +32,6 @@
             android:textStyle="bold"/>
 
     </LinearLayout>
-    <View
-        android:id="@+id/rectangle_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="700dp"
-        android:background="@drawable/rectangle_2"></View>
 
     <LinearLayout
         android:layout_marginTop="300dp"
@@ -48,7 +43,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Login Driver"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="30dp"
@@ -78,17 +73,6 @@
             android:inputType="textPassword"
             android:layout_marginTop="15dp" />
 
-
-        <TextView
-            android:id="@+id/regis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:paddingLeft="10dp"
-            android:text="I don't have any account"
-            android:textColor="@color/white"
-            android:layout_marginTop="15dp" />
-
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="100dp"
@@ -98,17 +82,14 @@
             android:backgroundTint="#A2988E"
             android:text="Login"
             android:textAllCaps="false"
-            android:layout_marginTop="15dp" />
-
-        <ImageView
-            android:id="@+id/btnLoginDriver"
-            android:layout_width="55dp"
-            android:layout_height="33dp"
-            android:src="@drawable/car"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="right"
-            android:background="@drawable/frame_kotakhitam"/>
+            android:layout_marginTop="25dp" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/rectangle_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="700dp"
+        android:background="@drawable/rectangle_2"></View>
 
 </RelativeLayout>

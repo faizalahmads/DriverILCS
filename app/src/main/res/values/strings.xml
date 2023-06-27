@@ -2,12 +2,38 @@
     <string name="app_name">DriverILCStest</string>
     <string-array name="role_array">
         <item>Admin</item>
-        <item>Driver</item>
         <item>Karyawan</item>
     </string-array>
-    <string-array name="role_kendaraan">
+    <string-array name="role_knd_array">
         <item>Direksi</item>
         <item>Komisaris</item>
         <item>Karyawan</item>
+    </string-array>
+    <string-array name="jam_array">
+        <item>08.00</item>
+        <item>08.30</item>
+        <item>09.00</item>
+        <item>09.30</item>
+        <item>10.00</item>
+        <item>10.30</item>
+        <item>11.00</item>
+        <item>11.30</item>
+        <item>13.00</item>
+        <item>13.30</item>
+        <item>14.00</item>
+        <item>14.30</item>
+        <item>15.00</item>
+        <item>15.30</item>
+        <item>16.00</item>
+        <item>16.30</item>
+    </string-array>
+    <string-array name="penumpang_array">
+        <item>1 Orang</item>
+        <item>2 Orang</item>
+        <item>3 Orang</item>
+        <item>4 Orang</item>
+        <item>5 Orang</item>
+        <item>6 Orang</item>
+        <item>7 Orang</item>
     </string-array>
 </resources>

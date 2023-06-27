@@ -20,69 +20,6 @@
         android:textStyle="bold"
         android:gravity="top" />
 
-    <!-- Rectangle 12 -->
-    <View
-        android:id="@+id/rectangle_1"
-        android:layout_width="226dp"
-        android:layout_height="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="108dp"
-        android:background="@drawable/frame_hitam"
-        android:layout_centerInParent="true"
-        />
-    <!-- image 2 -->
-    <View
-        android:id="@+id/image_2"
-        android:layout_width="200dp"
-        android:layout_height="105.67dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="118dp"
-        android:background="@drawable/image_1"
-        />
-
-    <TextView
-        android:id="@+id/nama_driver"
-        android:layout_width="199dp"
-        android:layout_height="54dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="105dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="242dp"
-        android:text="Nama Driver    :"
-        android:gravity="top"
-        android:textColor="#000000"
-        android:textSize="17dp"
-        />
-
-    <TextView
-        android:id="@+id/no_kendaraan"
-        android:layout_width="199dp"
-        android:layout_height="54dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="105dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="265dp"
-        android:text="No Kendaraan :"
-        android:gravity="top"
-        android:textColor="#000000"
-        android:textSize="17dp"
-        />
-
-    <TextView
-        android:id="@+id/posisi"
-        android:layout_width="199dp"
-        android:layout_height="54dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="105dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="290dp"
-        android:text="Posisi               :"
-        android:gravity="top"
-        android:textColor="#000000"
-        android:textSize="17dp"
-        />
-
     <TextView
         android:id="@+id/tanggal"
         android:layout_width="wrap_content"
@@ -92,17 +29,114 @@
         android:textSize="17dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="330dp"/>
+        android:layout_marginTop="100dp"/>
 
     <!-- Tabel -->
-    <View
-        android:id="@+id/tabel"
-        android:layout_width="335dp"
-        android:layout_height="117dp"
+<!--    <View-->
+<!--        android:id="@+id/tabel"-->
+<!--        android:layout_width="350dp"-->
+<!--        android:layout_height="500dp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginTop="135dp"-->
+<!--        android:background="@drawable/frame_kotakhitam"-->
+<!--        />-->
+
+    <HorizontalScrollView
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:background="@drawable/stroke_hitam"
         android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="362dp"
-        android:background="@drawable/frame_kotakhitam"
-        />
+        android:layout_marginTop="130dp">
+        <TableLayout
+            android:id="@+id/tablelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:id="@+id/row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/stroke_hitam">
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5sp"
+                    android:text="Jam"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_weight="2"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50sp"
+                    android:text="Nama"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_weight="3"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="95dp"
+                    android:text="Titik Awal"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_weight="2"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:text="Titik Akhir"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_weight="2"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:text="Jumlah Penumpang"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_weight="3"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="25dp"
+                    android:text="Nama Driver"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_weight="3"
+                    android:textColor="#000000"/>
+            </TableRow>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ListView
+                    android:id="@+id/listdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#000000"
+                    android:dividerHeight="2dp"
+                    android:layout_marginTop="40dp" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </TableLayout>
+    </HorizontalScrollView>
 
 </RelativeLayout>

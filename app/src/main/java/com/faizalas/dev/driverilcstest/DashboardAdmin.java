@@ -16,6 +16,7 @@ public class DashboardAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_admin);
         BtnUser = findViewById(R.id.btnUser);
+        BtnKendaraan = findViewById(R.id.btnKendaraan);
         btnLogout = findViewById(R.id.btnLogout);
 
         BtnUser.setOnClickListener(new View.OnClickListener() {

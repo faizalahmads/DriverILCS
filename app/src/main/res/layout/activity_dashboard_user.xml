@@ -39,7 +39,7 @@
         />
 
     <Button
-        android:id="@+id/profileUser"
+        android:id="@+id/btnProfile"
         android:layout_width="285dp"
         android:layout_height="55dp"
         android:layout_alignParentTop="true"
@@ -52,7 +52,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/cekjadwalUser"
+        android:id="@+id/btnCekJadwal"
         android:layout_width="285dp"
         android:layout_height="55dp"
         android:text="Cek Jadwal"

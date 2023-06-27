@@ -15,19 +15,19 @@
         <ImageView
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_marginBottom="50dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/logo"/>
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/logo" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="220dp"
             android:layout_height="20dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="250dp"
             android:layout_marginLeft="100dp"
-            android:indeterminateTint="@color/black"
+            android:layout_marginTop="250dp"
             android:indeterminate="true"
+            android:indeterminateTint="@color/black"
             android:max="100"
             android:progress="0" />
 

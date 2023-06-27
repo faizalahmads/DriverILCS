@@ -36,87 +36,58 @@
         android:src="@drawable/cekjadwal"
         android:layout_marginTop="135dp" />
 
-    <!-- Data Driver -->
-    <View
-        android:id="@+id/data_driver"
-        android:layout_width="362dp"
-        android:layout_height="106dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="23dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="327dp"
-        android:background="@drawable/frame_hitam" />
-    <ImageView
-        android:id="@+id/image_1"
-        android:layout_width="100dp"
-        android:layout_height="62.79dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="27dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="344dp"
-        android:background="@drawable/image_1" />
-    <TextView
-        android:id="@+id/nama_driver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="138dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="338dp"
-        android:text="Nama Driver : "
-        android:gravity="top"
-        android:lineHeight="15dp"
-        android:textColor="#000000" />
-    <TextView
-        android:id="@+id/no_kendaraan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="138dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="358dp"
-        android:text="No Kendaraan : "
-        android:gravity="top"
-        android:lineHeight="15dp"
-        android:textColor="#000000" />
-    <TextView
-        android:id="@+id/posisi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="138dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="378dp"
-        android:text="Posisi :"
-        android:gravity="top"
-        android:lineHeight="15dp"
-        android:textColor="#000000" />
-    <!-- btn Detail -->
     <Button
-        android:id="@+id/btn_detail"
-        android:layout_width="69dp"
-        android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="156dp"
+        android:id="@+id/btnPesan"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="56dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="404dp"
-        android:background="#1EACAC"
-        android:text="Detail"
-        android:textColor="#FFFFFF"
-        />
-    <!-- btn Pesan -->
-    <Button
-        android:id="@+id/btn_pesan"
-        android:layout_width="69dp"
-        android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="256dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="404dp"
+        android:layout_marginTop="310dp"
         android:background="#C04A07"
         android:text="Pesan"
         android:textColor="#FFFFFF"
         />
+
+    <Button
+        android:id="@+id/btnDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="310dp"
+        android:background="#1EACAC"
+        android:text="Detail"
+        android:textColor="#FFFFFF"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/frame_hitam"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="350dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="360dp">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ListView
+                android:id="@+id/listkendaraan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="#000000"
+                android:dividerHeight="2dp"
+                android:layout_marginTop="40dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
 
 
 </RelativeLayout>

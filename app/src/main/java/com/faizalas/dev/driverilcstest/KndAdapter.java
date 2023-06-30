@@ -74,7 +74,6 @@ public class KndAdapter extends BaseAdapter {
         viewHolder.jadwal_service.setText(data.getJadwal_service());
         viewHolder.status.setText(getStatusText(data.getStatus()));
 
-        // Ubah warna teks menjadi merah jika status "Unavailable"
         if (data.getStatus().equals("4")) {
             viewHolder.status.setTextColor(context.getResources().getColor(R.color.unavailable_text_color));
         } else {

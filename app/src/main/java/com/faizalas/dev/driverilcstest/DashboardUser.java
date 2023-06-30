@@ -22,8 +22,6 @@ public class DashboardUser extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lakukan tindakan logout di sini, seperti membersihkan sesi atau mengarahkan pengguna ke halaman login
-                // Contoh: Membersihkan sesi dan mengarahkan pengguna ke halaman login
                 clearSession();
                 navigateToLogin();
             }
@@ -40,18 +38,16 @@ public class DashboardUser extends AppCompatActivity {
         cekjadwalUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CekJadwal.class);
+                Intent intent = new Intent(getApplicationContext(), CekJadwalUser.class);
                 startActivity(intent);
             }
         });
     }
 
     private void clearSession() {
-        // Lakukan penyingkiran sesi atau data pengguna yang disimpan saat logout di sini
     }
 
     private void navigateToLogin() {
-        // Arahkan pengguna ke halaman login di sini
         Intent intent = new Intent(DashboardUser.this, MainActivity.class);
         startActivity(intent);
         finish();

@@ -3,6 +3,7 @@ package com.faizalas.dev.driverilcstest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,7 +28,7 @@ import java.net.URLEncoder;
 public class TambahUser extends AppCompatActivity {
 
     EditText etNama, etDivisi, etNip, etPassword, etConfirmPassword;
-    Button btnTambahUser;
+    Button BtnTambahUser, BtnLogout;
     Spinner spinnerRole;
 
     @Override
@@ -40,22 +41,28 @@ public class TambahUser extends AppCompatActivity {
         etNip = findViewById(R.id.etNipUser);
         etPassword = findViewById(R.id.etPasswordUser);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
-        btnTambahUser = findViewById(R.id.btnTambahUser);
+        BtnTambahUser = findViewById(R.id.btnTambahUser);
+        BtnLogout = findViewById(R.id.btnLogout);
         spinnerRole = findViewById(R.id.spinnerRole);
+
+        BtnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearSession();
+                navigateToLogin();
+            }
+        });
 
         final Context context = this;
 
-        // Ambil array role dari strings.xml
         String[] roleArray = getResources().getStringArray(R.array.role_array);
 
-        // Buat adapter untuk spinner
         ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleArray);
         roleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // Atur adapter pada spinnerRole
         spinnerRole.setAdapter(roleAdapter);
 
-        btnTambahUser.setOnClickListener(new View.OnClickListener() {
+        BtnTambahUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nama = etNama.getText().toString().trim();
@@ -65,7 +72,6 @@ public class TambahUser extends AppCompatActivity {
                 String confirmPassword = etConfirmPassword.getText().toString().trim();
                 String role = String.valueOf(spinnerRole.getSelectedItemPosition() + 1);
 
-                // Validasi semua kolom terisi
                 if (TextUtils.isEmpty(nama) || TextUtils.isEmpty(divisi) ||
                         TextUtils.isEmpty(nip) || TextUtils.isEmpty(password) ||
                         TextUtils.isEmpty(confirmPassword)) {
@@ -91,13 +97,11 @@ public class TambahUser extends AppCompatActivity {
             String role = params[4];
 
             try {
-                // Membuat koneksi HTTP
                 URL url = new URL(Urls.TAMBAH_USR_URL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
 
-                // Mengirim data ke server
                 OutputStream outputStream = connection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String data = URLEncoder.encode("nama", "UTF-8") + "=" + URLEncoder.encode(nama, "UTF-8") +
@@ -110,7 +114,6 @@ public class TambahUser extends AppCompatActivity {
                 writer.close();
                 outputStream.close();
 
-                // Menerima respon dari server (jika ada)
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder response = new StringBuilder();
@@ -121,7 +124,6 @@ public class TambahUser extends AppCompatActivity {
                 reader.close();
                 inputStream.close();
 
-                // Menutup koneksi
                 connection.disconnect();
 
                 return response.toString();
@@ -140,5 +142,14 @@ public class TambahUser extends AppCompatActivity {
                 Toast.makeText(TambahUser.this, "Tambah Gagal", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void clearSession() {
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(TambahUser.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

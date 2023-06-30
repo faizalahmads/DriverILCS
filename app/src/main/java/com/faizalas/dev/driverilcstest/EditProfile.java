@@ -31,10 +31,10 @@ import java.util.Map;
 
 public class EditProfile extends AppCompatActivity {
 
-
     TextView edituser, etNamaEdit, etDivisiEdit, etNipEdit;
-    Button logoutBtn, btnGantiPassword;
+    Button BtnLogout, BtnGantiPassword;
     ProgressDialog progressDialog;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +46,25 @@ public class EditProfile extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         edituser = findViewById(R.id.edituser);
-        logoutBtn = findViewById(R.id.btnLogout);
+        BtnLogout = findViewById(R.id.btnLogout);
         etNamaEdit = findViewById(R.id.etNamaEdit);
         etDivisiEdit = findViewById(R.id.etDivisiEdit);
         etNipEdit = findViewById(R.id.etNipEdit);
-        btnGantiPassword = findViewById(R.id.btnGantiPassword);
+        BtnGantiPassword = findViewById(R.id.btnGantiPassword);
 
-        // Ambil data pengguna yang login dari Intent
         Intent intent = getIntent();
         String nama = intent.getStringExtra("nama");
         String divisi = intent.getStringExtra("divisi");
         String nip = intent.getStringExtra("nip");
+        userId = intent.getStringExtra("userId");
 
-        // Tampilkan data pengguna yang login pada EditText atau TextView
         etNamaEdit.setText(nama);
         etDivisiEdit.setText(divisi);
         etNipEdit.setText(nip);
 
-        // Ambil data profil pengguna dari server
         getUserProfile();
 
-        btnGantiPassword.setOnClickListener(new View.OnClickListener() {
+        BtnGantiPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View gantipassword = LayoutInflater.from(EditProfile.this).inflate(R.layout.change_password, null);
@@ -77,7 +75,7 @@ public class EditProfile extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
                 builder.setTitle("Ganti Password");
                 builder.setView(gantipassword);
-                builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("UBAH", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String oldPassword = oldPass.getText().toString().trim();
@@ -85,7 +83,7 @@ public class EditProfile extends AppCompatActivity {
                         String confirmPassword = confirmPass.getText().toString().trim();
 
                         if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-                            showMessage("Kolom Tidak Boleh Kosong");
+                            showMessage("Kolom tidak boleh kosong");
                         } else {
                             changePasswordRequest(oldPassword, newPassword, confirmPassword);
                         }
@@ -95,28 +93,33 @@ public class EditProfile extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        BtnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearSession();
+                navigateToLogin();
+            }
+        });
     }
 
     private void getUserProfile() {
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Urls.PROFILE_USR_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Urls.PROFILE_USR_URL + "?userId=" + userId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
 
-                        // Tampilkan respons dari server pada konsol log
                         Log.d("ProfileResponse", response);
 
-                        // Parsing data profil pengguna dari respons server
                         try {
                             JSONObject profileObject = new JSONObject(response);
                             String nama = profileObject.getString("nama");
                             String divisi = profileObject.getString("divisi");
                             String nip = profileObject.getString("nip");
 
-                            // Tampilkan data profil pengguna pada EditText atau TextView
                             etNamaEdit.setText(nama);
                             etDivisiEdit.setText(divisi);
                             etNipEdit.setText(nip);
@@ -160,6 +163,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("userId", userId);
                 params.put("oldpassword", oldPassword);
                 params.put("newpassword", newPassword);
                 params.put("conforpassword", confirmPassword);
@@ -173,5 +177,14 @@ public class EditProfile extends AppCompatActivity {
 
     private void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void clearSession() {
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(EditProfile.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

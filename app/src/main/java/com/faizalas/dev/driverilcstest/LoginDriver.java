@@ -25,7 +25,6 @@ public class LoginDriver extends AppCompatActivity {
     EditText EtNip, EtPassword;
     Button BtnLogin;
 
-    String PHP_URL = "http://192.168.1.16/driverILCS/logindriver.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public class LoginDriver extends AppCompatActivity {
             String password = params[1];
 
             try {
-                URL url = new URL(PHP_URL);
+                URL url = new URL(Urls.LOGIN_DRIVER_URL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);

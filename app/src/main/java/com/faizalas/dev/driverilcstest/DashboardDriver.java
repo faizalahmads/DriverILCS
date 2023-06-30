@@ -2,6 +2,7 @@ package com.faizalas.dev.driverilcstest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,9 +34,49 @@ import java.util.Map;
 
 public class DashboardDriver extends AppCompatActivity {
 
+    Button BtnKendaraan, BtnCekJadwal, BtnLogout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_driver);
+
+        BtnKendaraan = findViewById(R.id.btnKendaraan);
+        BtnCekJadwal = findViewById(R.id.btnCekJadwalDriver);
+        BtnLogout = findViewById(R.id.btnLogout);
+
+
+        BtnKendaraan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), KendaraanDriver.class);
+                startActivity(i);
+            }
+        });
+
+        BtnCekJadwal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), CekJadwalDriver.class);
+                startActivity(i);
+            }
+        });
+
+        BtnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearSession();
+                navigateToLogin();
+            }
+        });
+    }
+
+    private void clearSession() {
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(DashboardDriver.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

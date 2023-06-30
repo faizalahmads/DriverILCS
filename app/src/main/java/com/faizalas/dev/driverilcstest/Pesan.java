@@ -3,6 +3,7 @@ package com.faizalas.dev.driverilcstest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +27,7 @@ import java.net.URLEncoder;
 public class Pesan extends AppCompatActivity {
 
     EditText ETnamaPesan, ETtitikAwal, ETtitikAkhir, ETjumlahPenumpang;
-    Button BTNpesan;
+    Button BtnPesan, BtnLogout;
     Spinner SpinnerJam, SpinnerPenumpang;
 
 
@@ -40,15 +41,22 @@ public class Pesan extends AppCompatActivity {
         ETtitikAkhir = findViewById(R.id.etTitikAkhir);
         SpinnerJam = findViewById(R.id.spinnerJam);
         SpinnerPenumpang = findViewById(R.id.spinnerPenumpang);
-        BTNpesan = findViewById(R.id.btnPesan);
+        BtnPesan = findViewById(R.id.btnPesan);
+        BtnLogout = findViewById(R.id.btnLogout);
+
+        BtnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearSession();
+                navigateToLogin();
+            }
+        });
 
         final Context context = this;
 
-        // Ambil array role dari strings.xml
         String[] jamArray = getResources().getStringArray(R.array.jam_array);
         String[] penumpangArray = getResources().getStringArray(R.array.penumpang_array);
 
-        // Buat adapter untuk spinner
         ArrayAdapter<String> jamAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, jamArray);
         ArrayAdapter<String> penumpangAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, penumpangArray);
         jamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -56,7 +64,7 @@ public class Pesan extends AppCompatActivity {
         SpinnerJam.setAdapter(jamAdapter);
         SpinnerPenumpang.setAdapter(penumpangAdapter);
 
-        BTNpesan.setOnClickListener(new View.OnClickListener() {
+        BtnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nama = ETnamaPesan.getText().toString().trim();
@@ -65,7 +73,6 @@ public class Pesan extends AppCompatActivity {
                 String jam = SpinnerJam.getSelectedItem().toString().trim();
                 String jumlah_penumpang = SpinnerPenumpang.getSelectedItem().toString().trim();
 
-                // Memeriksa apakah semua kolom telah diisi
                 if (nama.isEmpty() || titik_awal.isEmpty() || titik_akhir.isEmpty() || jam.isEmpty() || jumlah_penumpang.isEmpty()) {
                     Toast.makeText(Pesan.this, "Harap isi semua kolom", Toast.LENGTH_SHORT).show();
                 } else {
@@ -132,5 +139,14 @@ public class Pesan extends AppCompatActivity {
                 Toast.makeText(Pesan.this, "Tambah Gagal", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void clearSession() {
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(Pesan.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

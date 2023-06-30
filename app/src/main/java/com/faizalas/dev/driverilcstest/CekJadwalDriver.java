@@ -26,20 +26,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class CekJadwalDriver extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     ListView listViewKendaraan;
     SwipeRefreshLayout swipe;
     List<DataKendaraanUser> itemList = new ArrayList<DataKendaraanUser>();
     KndAdapterUser adapter;
-    Button BtnPesan, BtnDetail, BtnLogout;
+    Button BtnLogout, BtnDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cek_jadwal);
+        setContentView(R.layout.activity_cek_jadwal_driver);
 
-        BtnPesan = findViewById(R.id.btnPesan);
         BtnDetail = findViewById(R.id.btnDetail);
         BtnLogout = findViewById(R.id.btnLogout);
 
@@ -54,23 +53,13 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
         swipe = findViewById(R.id.swipe);
         listViewKendaraan = findViewById(R.id.listkendaraan);
 
-        adapter = new KndAdapterUser(CekJadwal.this, itemList);
+        adapter = new KndAdapterUser(CekJadwalDriver.this, itemList);
         listViewKendaraan.setAdapter(adapter);
-
-        swipe.setOnRefreshListener(this);
-
-        BtnPesan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Pesan.class);
-                startActivity(i);
-            }
-        });
 
         BtnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Detail.class);
+                Intent i = new Intent(getApplicationContext(), DetailDriver.class);
                 startActivity(i);
             }
         });
@@ -140,7 +129,7 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
     }
 
     private void navigateToLogin() {
-        Intent intent = new Intent(CekJadwal.this, MainActivity.class);
+        Intent intent = new Intent(CekJadwalDriver.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

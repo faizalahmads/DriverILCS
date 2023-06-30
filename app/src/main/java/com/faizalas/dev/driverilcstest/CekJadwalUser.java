@@ -26,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class CekJadwalUser extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     ListView listViewKendaraan;
     SwipeRefreshLayout swipe;
@@ -37,7 +37,7 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cek_jadwal);
+        setContentView(R.layout.activity_cek_jadwal_user);
 
         BtnPesan = findViewById(R.id.btnPesan);
         BtnDetail = findViewById(R.id.btnDetail);
@@ -54,7 +54,7 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
         swipe = findViewById(R.id.swipe);
         listViewKendaraan = findViewById(R.id.listkendaraan);
 
-        adapter = new KndAdapterUser(CekJadwal.this, itemList);
+        adapter = new KndAdapterUser(CekJadwalUser.this, itemList);
         listViewKendaraan.setAdapter(adapter);
 
         swipe.setOnRefreshListener(this);
@@ -62,16 +62,16 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
         BtnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Pesan.class);
-                startActivity(i);
+                Intent intent = new Intent(getApplicationContext(), Pesan.class);
+                startActivity(intent);
             }
         });
 
         BtnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Detail.class);
-                startActivity(i);
+                Intent intent = new Intent(getApplicationContext(), DetailUser.class);
+                startActivity(intent);
             }
         });
 
@@ -140,7 +140,7 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
     }
 
     private void navigateToLogin() {
-        Intent intent = new Intent(CekJadwal.this, MainActivity.class);
+        Intent intent = new Intent(CekJadwalUser.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

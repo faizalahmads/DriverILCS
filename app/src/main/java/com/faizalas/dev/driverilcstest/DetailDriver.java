@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -41,19 +40,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class Detail extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class DetailDriver extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     ListView listViewDetail;
     SwipeRefreshLayout swipe;
     List<DataDetail> itemList = new ArrayList<DataDetail>();
     DtlAdapter adapter;
     LayoutInflater inflater;
-    RadioButton rbWawan, rbRizal, rbEndra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_driver);
 
         swipe = findViewById(R.id.swipe);
         listViewDetail = findViewById(R.id.listdetail);
@@ -72,7 +70,7 @@ public class Detail extends AppCompatActivity implements SwipeRefreshLayout.OnRe
 
 
 
-        adapter = new DtlAdapter(Detail.this, itemList);
+        adapter = new DtlAdapter(DetailDriver.this, itemList);
         adapter.sortItemsByJam();
         listViewDetail.setAdapter(adapter);
 
@@ -92,18 +90,14 @@ public class Detail extends AppCompatActivity implements SwipeRefreshLayout.OnRe
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 final String idx = itemList.get(position).getId();
-                final CharSequence [] pilihAksi = {"Setuju", "Tolak"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(Detail.this);
+                final CharSequence [] pilihAksi = {"Selesai"};
+                AlertDialog.Builder dialog = new AlertDialog.Builder(DetailDriver.this);
                 dialog.setItems(pilihAksi, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case 0:
-                                setujuData(idx);
-                                break;
-
-                            case 1:
-                                tolakData(idx);
+                                selesaiData(idx);
                                 break;
                         }
                     }
@@ -113,87 +107,17 @@ public class Detail extends AppCompatActivity implements SwipeRefreshLayout.OnRe
         });
     }
 
-    public void setujuData(String id) {
-        AlertDialog.Builder dialogStatus = new AlertDialog.Builder(Detail.this);
-        inflater = getLayoutInflater();
-        View viewDialog = inflater.inflate(R.layout.dialog_nama_driver, null);
-        dialogStatus.setView(viewDialog);
-        dialogStatus.setCancelable(true);
-        dialogStatus.setTitle("PILIH NAMA DRIVER");
-
-        rbWawan = viewDialog.findViewById(R.id.rbWawan);
-        rbRizal = viewDialog.findViewById(R.id.rbRizal);
-        rbEndra = viewDialog.findViewById(R.id.rbEndra);
-
-        dialogStatus.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                int selectedSetujuId = 0;
-                if (rbWawan.isChecked()) {
-                    selectedSetujuId = 1;
-                } else if (rbRizal.isChecked()) {
-                    selectedSetujuId = 2;
-                } else if (rbEndra.isChecked()) {
-                    selectedSetujuId = 3;
-                }
-
-                updateSetuju(id, selectedSetujuId);
-
-                dialog.dismiss();
-            }
-        });
-
-        dialogStatus.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        dialogStatus.show();
-    }
-
-    private void updateSetuju(String id, final int selectSetujuId) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.SETUJU_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(Detail.this, "Driver Berhasil Ditambah", Toast.LENGTH_SHORT).show();
-                        callVolley();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Detail.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-
-                params.put("id", id);
-                params.put("nama_driver", String.valueOf(selectSetujuId));
-
-                return params;
-            }
-        };
-
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        queue.add(stringRequest);
-    }
-
-    public void tolakData(String id) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(Detail.this);
+    public void selesaiData(String id) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(DetailDriver.this);
         dialog.setCancelable(true);
         dialog.setIcon(R.mipmap.ic_launcher);
         dialog.setTitle("Konfirmasi");
-        dialog.setMessage("Apakah Anda yakin ingin menolak pesanan ini?");
+        dialog.setMessage("Apakah Anda yakin ingin selesaikan pesanan ini?");
 
         dialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                prosesTolakData(id);
+                prosesSelesaiData(id);
                 dialog.dismiss();
             }
         });
@@ -208,19 +132,19 @@ public class Detail extends AppCompatActivity implements SwipeRefreshLayout.OnRe
         dialog.show();
     }
 
-    private void prosesTolakData(String id) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.TOLAK_URL,
+    private void prosesSelesaiData(String id) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.SELESAI_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(Detail.this, response, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailDriver.this, response, Toast.LENGTH_SHORT).show();
                         callVolley();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Detail.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailDriver.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override

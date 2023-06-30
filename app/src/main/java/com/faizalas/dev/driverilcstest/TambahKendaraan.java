@@ -1,6 +1,7 @@
 package com.faizalas.dev.driverilcstest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -29,8 +30,7 @@ public class TambahKendaraan extends AppCompatActivity {
 
     private EditText etNamaDriver, etNomorPlat, etMerk, etTanggalService, etNipDriver, etPasswordDriver, etConfirmPassword;
     private Spinner spinnerRole;
-    private Button btnTambahKendaraan;
-
+    private Button BtnTambahKendaraan, BtnLogout;
     private List<String> roleList;
 
     @Override
@@ -38,7 +38,6 @@ public class TambahKendaraan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_kendaraan);
 
-        // Inisialisasi elemen UI
         etNamaDriver = findViewById(R.id.etNamaDriver);
         etNomorPlat = findViewById(R.id.etNomorPlat);
         etMerk = findViewById(R.id.etMerk);
@@ -47,23 +46,29 @@ public class TambahKendaraan extends AppCompatActivity {
         etPasswordDriver = findViewById(R.id.etPasswordDriver);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         spinnerRole = findViewById(R.id.spinnerRole);
-        btnTambahKendaraan = findViewById(R.id.btnTambahKendaraan);
+        BtnTambahKendaraan = findViewById(R.id.btnTambahKendaraan);
+        BtnLogout = findViewById(R.id.btnLogout);
+
+        BtnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearSession();
+                navigateToLogin();
+            }
+        });
 
         final Context context = this;
 
         String[] roleArray = getResources().getStringArray(R.array.role_knd_array);
 
-        // Setel adapter untuk Spinner Role
         ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleArray);
         roleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerRole.setAdapter(roleAdapter);
 
-        // Tambahkan onClickListener untuk tombol "Tambah"
-        btnTambahKendaraan.setOnClickListener(new View.OnClickListener() {
+        BtnTambahKendaraan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Ambil nilai dari EditText dan Spinner
                 String namaDriver = etNamaDriver.getText().toString().trim();
                 String nomorPlat = etNomorPlat.getText().toString().trim();
                 String merk = etMerk.getText().toString().trim();
@@ -73,7 +78,6 @@ public class TambahKendaraan extends AppCompatActivity {
                 String confirmPassword = etConfirmPassword.getText().toString().trim();
                 String role = getSelectedRole().trim();
 
-                // Memeriksa apakah semua kolom telah diisi
                 if (namaDriver.isEmpty() || nomorPlat.isEmpty() || merk.isEmpty() || tanggalService.isEmpty() || nipDriver.isEmpty() || passwordDriver.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(TambahKendaraan.this, "Harap isi semua kolom", Toast.LENGTH_SHORT).show();
                 } else if (!passwordDriver.equals(confirmPassword)) {
@@ -99,13 +103,11 @@ public class TambahKendaraan extends AppCompatActivity {
             String role = params[6];
 
             try {
-                // Membuat koneksi HTTP
                 URL url = new URL(Urls.TAMBAH_KND_URL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
 
-                // Mengirim data ke server
                 OutputStream outputStream = connection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String data = URLEncoder.encode("nama_driver", "UTF-8") + "=" + URLEncoder.encode(namaDriver, "UTF-8") +
@@ -120,7 +122,6 @@ public class TambahKendaraan extends AppCompatActivity {
                 writer.close();
                 outputStream.close();
 
-                // Menerima respon dari server (jika ada)
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder response = new StringBuilder();
@@ -131,7 +132,6 @@ public class TambahKendaraan extends AppCompatActivity {
                 reader.close();
                 inputStream.close();
 
-                // Menutup koneksi
                 connection.disconnect();
 
                 return response.toString();
@@ -164,5 +164,14 @@ public class TambahKendaraan extends AppCompatActivity {
         }
 
         return "";
+    }
+
+    private void clearSession() {
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(TambahKendaraan.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

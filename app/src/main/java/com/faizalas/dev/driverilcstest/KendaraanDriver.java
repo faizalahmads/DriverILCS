@@ -15,7 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -37,25 +37,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
-
+public class KendaraanDriver extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     ListView listViewKendaraan;
     SwipeRefreshLayout swipe;
     List<DataKendaraan> itemList = new ArrayList<DataKendaraan>();
     KndAdapter adapter;
     LayoutInflater inflater;
-    RadioButton rbOnPeltow, rbOnWitel, rbOnTheWay, rbUnavailable;
-    EditText etid, etnamadriver, etnoplat, etjadwal;
+    TextView tvnamadriver, tvnoplat;
+    EditText etid, etjadwal;
     String vid, vnamadriver, vnoplat, vjadwal;
-    Button BtnTambahKendaraan, BtnLogout;
+    Button BtnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kendaraan);
+        setContentView(R.layout.activity_kendaraan_driver);
 
-        BtnTambahKendaraan = findViewById(R.id.btnTambahKendaraan);
         BtnLogout = findViewById(R.id.btnLogout);
 
         BtnLogout.setOnClickListener(new View.OnClickListener() {
@@ -69,15 +67,7 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
         swipe = findViewById(R.id.swipe);
         listViewKendaraan = findViewById(R.id.listkendaraan);
 
-        BtnTambahKendaraan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), TambahKendaraan.class);
-                startActivity(i);
-            }
-        });
-
-        adapter = new KndAdapter(Kendaraan.this, itemList);
+        adapter = new KndAdapter(KendaraanDriver.this, itemList);
         listViewKendaraan.setAdapter(adapter);
 
         swipe.setOnRefreshListener(this);
@@ -96,21 +86,14 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 final String idx = itemList.get(position).getId();
-                final CharSequence [] pilihanAksi = {"Hapus", "Edit", "Status"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(Kendaraan.this);
+                final CharSequence [] pilihanAksi = {"Ubah Jadwal Service"};
+                AlertDialog.Builder dialog = new AlertDialog.Builder(KendaraanDriver.this);
                 dialog.setItems(pilihanAksi, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         switch (which){
                             case 0:
-                                hapusData(idx);
-                                break;
-
-                            case 1:
-                                ubahData(idx);
-                                break;
-                            case 2:
-                                statusData(idx);
+                                editJadwalServiceData(idx);
                                 break;
                         }
                     }
@@ -120,7 +103,7 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
         });
     }
 
-    public void ubahData(String id){
+    public void editJadwalServiceData(String id){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.EDIT_KND_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -133,7 +116,7 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
                             String noplatx = jObj.getString("nomor_plat");
                             String jadwalx = jObj.getString("jadwal_service");
 
-                            dialogForm(idx, namadriverx, noplatx, jadwalx, "UPDATE");
+                            dialogForm(idx,namadriverx, noplatx, jadwalx, "UPDATE");
 
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -143,7 +126,7 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Kendaraan.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
+                Toast.makeText(KendaraanDriver.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
             }
         })
         {
@@ -160,27 +143,27 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
     }
 
     public void dialogForm(String id, String nama_driver, String nomor_plat, String jadwal_service, String button){
-        AlertDialog.Builder dialogForm = new AlertDialog.Builder(Kendaraan.this);
+        AlertDialog.Builder dialogForm = new AlertDialog.Builder(KendaraanDriver.this);
         inflater = getLayoutInflater();
-        View viewDialog = inflater.inflate(R.layout.form_edit_kendaraan, null);
+        View viewDialog = inflater.inflate(R.layout.form_edit_kendaraan_driver, null);
         dialogForm.setView(viewDialog);
         dialogForm.setCancelable(true);
         dialogForm.setTitle("EDIT KENDARAAN");
 
         etid = viewDialog.findViewById(R.id.etIdEdit);
-        etnamadriver = viewDialog.findViewById(R.id.etNamaEdit);
-        etnoplat = viewDialog.findViewById(R.id.etNomorPlat);
+        tvnamadriver = viewDialog.findViewById(R.id.tvNamaEdit);
+        tvnoplat = viewDialog.findViewById(R.id.tvNomorPlat);
         etjadwal = viewDialog.findViewById(R.id.etJadwalService);
 
         if (id.isEmpty()){
             etid.setText(null);
-            etnamadriver.setText(null);
-            etnoplat.setText(null);
+            tvnamadriver.setText(null);
+            tvnoplat.setText(null);
             etjadwal.setText(null);
         } else {
             etid.setText(id);
-            etnamadriver.setText(nama_driver);
-            etnoplat.setText(nomor_plat);
+            tvnamadriver.setText(nama_driver);
+            tvnoplat.setText(nomor_plat);
             etjadwal.setText(jadwal_service);
         }
 
@@ -188,8 +171,8 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 vid = etid.getText().toString();
-                vnamadriver = etnamadriver.getText().toString();
-                vnoplat = etnoplat.getText().toString();
+                vnamadriver = tvnamadriver.getText().toString();
+                vnoplat = tvnoplat.getText().toString();
                 vjadwal = etjadwal.getText().toString();
 
                 simpan();
@@ -201,8 +184,8 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 etid.setText(null);
-                etnamadriver.setText(null);
-                etnoplat.setText(null);
+                tvnamadriver.setText(null);
+                tvnoplat.setText(null);
                 etjadwal.setText(null);
             }
         });
@@ -215,12 +198,12 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
                     @Override
                     public void onResponse(String response) {
                         callVolley();
-                        Toast.makeText(Kendaraan.this, response, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(KendaraanDriver.this, response, Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Kendaraan.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
+                Toast.makeText(KendaraanDriver.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
             }
         })
         {
@@ -242,132 +225,6 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
                 }
             }
         };
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        queue.add(stringRequest);
-    }
-
-    public void hapusData(String id) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(Kendaraan.this);
-        dialog.setCancelable(true);
-        dialog.setIcon(R.mipmap.ic_launcher);
-        dialog.setTitle("Konfirmasi");
-        dialog.setMessage("Apakah Anda yakin ingin menghapus data ini?");
-
-        dialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                prosesHapusData(id);
-                dialog.dismiss();
-            }
-        });
-
-        dialog.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
-
-    private void prosesHapusData(String id) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.DELETE_KND_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(Kendaraan.this, response, Toast.LENGTH_SHORT).show();
-                        callVolley();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Kendaraan.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("id", id);
-                return params;
-            }
-        };
-
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        queue.add(stringRequest);
-    }
-
-
-    public void statusData(String id) {
-        AlertDialog.Builder dialogStatus = new AlertDialog.Builder(Kendaraan.this);
-        inflater = getLayoutInflater();
-        View viewDialog = inflater.inflate(R.layout.dialog_status, null);
-        dialogStatus.setView(viewDialog);
-        dialogStatus.setCancelable(true);
-        dialogStatus.setTitle("Pilih Status");
-
-        rbOnPeltow = viewDialog.findViewById(R.id.rbOnPeltow);
-        rbOnWitel = viewDialog.findViewById(R.id.rbOnWitel);
-        rbOnTheWay = viewDialog.findViewById(R.id.rbOnTheWay);
-        rbUnavailable = viewDialog.findViewById(R.id.rbUnavailable);
-
-        dialogStatus.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                int selectedStatusId = 0;
-                if (rbOnWitel.isChecked()) {
-                    selectedStatusId = 1;
-                } else if (rbOnPeltow.isChecked()) {
-                    selectedStatusId = 2;
-                } else if (rbOnTheWay.isChecked()) {
-                    selectedStatusId = 3;
-                } else if (rbUnavailable.isChecked()) {
-                    selectedStatusId = 4;
-                }
-
-                updateStatus(id, selectedStatusId);
-
-                dialog.dismiss();
-            }
-        });
-
-        dialogStatus.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        dialogStatus.show();
-    }
-
-    private void updateStatus(String id, final int selectedStatusId) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.UPDATE_STATUS_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(Kendaraan.this, "Status berhasil diperbarui", Toast.LENGTH_SHORT).show();
-                        callVolley();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Kendaraan.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-
-                params.put("id", id);
-                params.put("status", String.valueOf(selectedStatusId));
-
-                return params;
-            }
-        };
-
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(stringRequest);
     }
@@ -424,7 +281,7 @@ public class Kendaraan extends AppCompatActivity implements SwipeRefreshLayout.O
     }
 
     private void navigateToLogin() {
-        Intent intent = new Intent(Kendaraan.this, MainActivity.class);
+        Intent intent = new Intent(KendaraanDriver.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

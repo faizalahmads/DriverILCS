@@ -76,7 +76,17 @@ public class DtlAdapter extends BaseAdapter {
         viewHolder.titik_awal.setText(data.getTitik_awal());
         viewHolder.titik_akhir.setText(data.getTitik_akhir());
         viewHolder.jumlah_penumpang.setText(data.getJumlah_penumpang());
-        viewHolder.nama_driver.setText(data.getNama_driver());
+
+        String namaDriver = "";
+        String namaDriverValue = data.getNama_driver();
+        if (namaDriverValue.equals("1")) {
+            namaDriver = "Wawan";
+        } else if (namaDriverValue.equals("2")) {
+            namaDriver = "Rizal";
+        } else if (namaDriverValue.equals("3")) {
+            namaDriver = "Endra";
+        }
+        viewHolder.nama_driver.setText(namaDriver);
 
         return convertView;
     }

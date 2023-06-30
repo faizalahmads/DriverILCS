@@ -5,11 +5,10 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.LayoutInflater;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,57 +22,48 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class DetailUser extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
-    ListView listViewKendaraan;
+    ListView listViewDetail;
     SwipeRefreshLayout swipe;
-    List<DataKendaraanUser> itemList = new ArrayList<DataKendaraanUser>();
-    KndAdapterUser adapter;
-    Button BtnPesan, BtnDetail, BtnLogout;
+    List<DataDetail> itemList = new ArrayList<DataDetail>();
+    DtlAdapter adapter;
+    LayoutInflater inflater;
+    TextView tanggal, jam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cek_jadwal);
-
-        BtnPesan = findViewById(R.id.btnPesan);
-        BtnDetail = findViewById(R.id.btnDetail);
-        BtnLogout = findViewById(R.id.btnLogout);
-
-        BtnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearSession();
-                navigateToLogin();
-            }
-        });
+        setContentView(R.layout.activity_detail_user);
 
         swipe = findViewById(R.id.swipe);
-        listViewKendaraan = findViewById(R.id.listkendaraan);
+        listViewDetail = findViewById(R.id.listdetail);
 
-        adapter = new KndAdapterUser(CekJadwal.this, itemList);
-        listViewKendaraan.setAdapter(adapter);
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID"));
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm", new Locale("id", "ID"));
+
+        String currentDate = sdfDate.format(new Date());
+        String currentTime = sdfTime.format(new Date());
+
+        TextView tanggalTextView = findViewById(R.id.tanggal);
+        TextView jamTextView = findViewById(R.id.jam);
+
+        tanggalTextView.setText(currentDate);
+        jamTextView.setText(currentTime);
+
+        adapter = new DtlAdapter(DetailUser.this, itemList);
+        adapter.sortItemsByJam();
+        listViewDetail.setAdapter(adapter);
 
         swipe.setOnRefreshListener(this);
-
-        BtnPesan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Pesan.class);
-                startActivity(i);
-            }
-        });
-
-        BtnDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Detail.class);
-                startActivity(i);
-            }
-        });
 
         swipe.post(new Runnable() {
             @Override
@@ -92,13 +82,11 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
         adapter.notifyDataSetChanged();
         callVolley();
     }
-
     private void callVolley() {
         itemList.clear();
-        adapter.notifyDataSetChanged();
         swipe.setRefreshing(true);
 
-        JsonArrayRequest jArr = new JsonArrayRequest(Request.Method.GET, Urls.TAMPILAN_KND_URL, null,
+        JsonArrayRequest jArr = new JsonArrayRequest(Request.Method.GET, Urls.TAMPILAN_DTL_USR_URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -106,16 +94,25 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject obj = response.getJSONObject(i);
                                 String id = obj.getString("id");
+                                String jam = obj.getString("jam");
+                                String nama = obj.getString("nama");
+                                String titik_awal = obj.getString("titik_awal");
+                                String titik_akhir = obj.getString("titik_akhir");
+                                String jumlah_penumpang = obj.getString("jumlah_penumpang");
                                 String nama_driver = obj.getString("nama_driver");
-                                String nomor_plat = obj.getString("nomor_plat");
-                                String role = obj.getString("role");
-                                String status = obj.getString("status");
 
-                                if (role.equals("3")) {
-                                    DataKendaraanUser item = new DataKendaraanUser(id, nama_driver, nomor_plat, role, status);
-                                    itemList.add(item);
-                                }
+                                DataDetail item = new DataDetail(id, jam, nama, titik_awal, titik_akhir, jumlah_penumpang, nama_driver);
+                                itemList.add(item);
                             }
+
+                            Collections.sort(itemList, new Comparator<DataDetail>() {
+                                @Override
+                                public int compare(DataDetail item1, DataDetail item2) {
+                                    String jam1 = item1.getJam();
+                                    String jam2 = item2.getJam();
+                                    return jam1.compareTo(jam2);
+                                }
+                            });
 
                             adapter.notifyDataSetChanged();
                             swipe.setRefreshing(false);
@@ -136,12 +133,4 @@ public class CekJadwal extends AppCompatActivity implements SwipeRefreshLayout.O
         mRequestQueue.add(jArr);
     }
 
-    private void clearSession() {
-    }
-
-    private void navigateToLogin() {
-        Intent intent = new Intent(CekJadwal.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

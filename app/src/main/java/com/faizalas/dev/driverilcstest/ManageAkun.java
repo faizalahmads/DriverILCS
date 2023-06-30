@@ -51,17 +51,28 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
     TextView tvid, tvnama, tvdivisi, tvnip;
     EditText etpassword;
     String vid, vnama, vdivisi, vnip, vpassword;
-    Button btnLogout, btnTambahUser;
+    Button BtnLogout, BtnTambahUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_akun);
-        btnTambahUser = findViewById(R.id.btnTambahUser);
+
+        BtnTambahUser = findViewById(R.id.btnTambahUser);
+        BtnLogout = findViewById(R.id.btnLogout);
+
+        BtnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearSession();
+                navigateToLogin();
+            }
+        });
+
         swipe = findViewById(R.id.swipe);
         list = findViewById(R.id.list);
 
-        btnTambahUser.setOnClickListener(new View.OnClickListener() {
+        BtnTambahUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), TambahUser.class);
@@ -245,7 +256,32 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
         queue.add(stringRequest);
     }
 
-    public void hapusData(String id){
+    public void hapusData(String id) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(ManageAkun.this);
+        dialog.setCancelable(true);
+        dialog.setIcon(R.mipmap.ic_launcher);
+        dialog.setTitle("Konfirmasi");
+        dialog.setMessage("Apakah Anda yakin ingin menghapus data ini?");
+
+        dialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                prosesHapusData(id);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void prosesHapusData(String id) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.DELETE_USR_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -253,24 +289,25 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
                         Toast.makeText(ManageAkun.this, response, Toast.LENGTH_SHORT).show();
                         callVolley();
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(ManageAkun.this,"Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
-            }
-        })
-        {
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ManageAkun.this, "Gagal Koneksi ke Server, Silahkan Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-
                 params.put("id", id);
                 return params;
             }
         };
+
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(stringRequest);
     }
+
 
     @Override
     public void onRefresh() {
@@ -284,13 +321,11 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
         adapter.notifyDataSetChanged();
         swipe.setRefreshing(true);
 
-        // Request to fetch data from select.php
         JsonArrayRequest jArr = new JsonArrayRequest(Request.Method.GET, Urls.TAMPILAN_USR_URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            // Inside the onResponse method of JsonArrayRequest
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject obj = response.getJSONObject(i);
                                 String id = obj.getString("id");
@@ -334,4 +369,12 @@ public class ManageAkun extends AppCompatActivity implements SwipeRefreshLayout.
         mRequestQueue.add(jArr);
     }
 
+    private void clearSession() {
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(ManageAkun.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

@@ -62,7 +62,6 @@ public class Regist extends AppCompatActivity {
                 String confirmPassword = ETconfirmpass.getText().toString().trim();
                 String role = "2";
 
-                // Memeriksa apakah semua kolom telah diisi
                 if (nama.isEmpty() || divisi.isEmpty() || nip.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(Regist.this, "Harap isi semua kolom", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(confirmPassword)) {
@@ -86,13 +85,11 @@ public class Regist extends AppCompatActivity {
             String role = params[4];
 
             try {
-                // Membuat koneksi HTTP
                 URL url = new URL(Urls.REGIST_URL + "?role=" + role);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
 
-                // Mengirim data ke server
                 OutputStream outputStream = connection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String data = URLEncoder.encode("nama", "UTF-8") + "=" + URLEncoder.encode(nama, "UTF-8") +
@@ -104,7 +101,6 @@ public class Regist extends AppCompatActivity {
                 writer.close();
                 outputStream.close();
 
-                // Menerima respon dari server (jika ada)
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder response = new StringBuilder();
@@ -115,7 +111,6 @@ public class Regist extends AppCompatActivity {
                 reader.close();
                 inputStream.close();
 
-                // Menutup koneksi
                 connection.disconnect();
 
                 return response.toString();

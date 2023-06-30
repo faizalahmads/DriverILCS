@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 reader.close();
                 inputStream.close();
 
-                // Menutup koneksi
                 connection.disconnect();
 
                 return response.toString();
@@ -127,14 +126,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, loginMessage, Toast.LENGTH_SHORT).show();
 
                 if (loginMessage.equals("Login berhasil")) {
-                    // Arahkan pengguna ke halaman dashboard yang sesuai berdasarkan role
                     if (role.equals("1")) {
-                        // Pengguna dengan role 1 (admin) diarahkan ke DashboardAdminActivity
                         Intent intent = new Intent(MainActivity.this, DashboardAdmin.class);
                         startActivity(intent);
                         finish();
                     } else if (role.equals("2")) {
-                        // Pengguna dengan role 2 (driver) diarahkan ke DashboardDriverActivity
                         Intent intent = new Intent(MainActivity.this, DashboardUser.class);
                         startActivity(intent);
                         finish();

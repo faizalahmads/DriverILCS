@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class DashboardAdmin extends AppCompatActivity {
 
-    Button BtnUser, BtnKendaraan, btnLogout;
+    Button BtnUser, BtnKendaraan,BtnCekJadwal, BtnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,8 @@ public class DashboardAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard_admin);
         BtnUser = findViewById(R.id.btnUser);
         BtnKendaraan = findViewById(R.id.btnKendaraan);
-        btnLogout = findViewById(R.id.btnLogout);
+        BtnCekJadwal = findViewById(R.id.btnCekJadwal);
+        BtnLogout = findViewById(R.id.btnLogout);
 
         BtnUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,11 +36,17 @@ public class DashboardAdmin extends AppCompatActivity {
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        BtnCekJadwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lakukan tindakan logout di sini, seperti membersihkan sesi atau mengarahkan pengguna ke halaman login
-                // Contoh: Membersihkan sesi dan mengarahkan pengguna ke halaman login
+                Intent i = new Intent(getApplicationContext(), CekJadwal.class);
+                startActivity(i);
+            }
+        });
+
+        BtnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 clearSession();
                 navigateToLogin();
             }
@@ -47,11 +54,9 @@ public class DashboardAdmin extends AppCompatActivity {
     }
 
     private void clearSession() {
-        // Lakukan penyingkiran sesi atau data pengguna yang disimpan saat logout di sini
     }
 
     private void navigateToLogin() {
-        // Arahkan pengguna ke halaman login di sini
         Intent intent = new Intent(DashboardAdmin.this, MainActivity.class);
         startActivity(intent);
         finish();

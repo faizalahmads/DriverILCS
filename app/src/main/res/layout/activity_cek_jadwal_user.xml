@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CekJadwal">
+    tools:context=".CekJadwalUser">
 
     <TextView
         android:id="@+id/cekjadwal"
@@ -88,5 +88,7 @@
                 android:layout_marginTop="40dp" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
+
+
 
 </RelativeLayout>

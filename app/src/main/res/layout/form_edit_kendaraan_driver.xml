@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:visibility="gone"/>
-    <EditText
-        android:id="@+id/etNamaEdit"
+    <TextView
+        android:id="@+id/tvNamaEdit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
@@ -26,8 +26,8 @@
         android:textSize="17dp"
         android:textStyle="bold"
         android:background="@drawable/form" />
-    <EditText
-        android:id="@+id/etNomorPlat"
+    <TextView
+        android:id="@+id/tvNomorPlat"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"

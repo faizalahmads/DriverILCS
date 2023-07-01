@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DriverILCStest</string>
+    <string name="app_name">DriverILCS</string>
     <string-array name="role_array">
         <item>Admin</item>
         <item>Karyawan</item>

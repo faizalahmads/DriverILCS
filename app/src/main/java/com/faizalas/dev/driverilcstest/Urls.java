@@ -1,7 +1,7 @@
 package com.faizalas.dev.driverilcstest;
 
 public class Urls {
-    public static final String ROOT_URL = "http://192.168.1.30/driverILCS/";
+    public static final String ROOT_URL = "http://192.168.1.15/driverILCS/";
     public static final String LOGIN_URL = ROOT_URL+"login.php";
     public static final String REGIST_URL = ROOT_URL+"regist.php";
     public static final String TAMPILAN_USR_URL = ROOT_URL+"select.php";

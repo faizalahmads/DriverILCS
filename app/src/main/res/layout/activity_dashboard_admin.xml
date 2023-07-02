@@ -14,7 +14,7 @@
         android:layout_marginLeft="14dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:text="Dashboard Admin"
+        android:text="Dashboard"
         android:textSize="35sp"
         android:textColor="#006DB2"
         android:textStyle="bold"

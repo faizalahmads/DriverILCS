@@ -56,6 +56,8 @@ public class CekJadwalDriver extends AppCompatActivity implements SwipeRefreshLa
         adapter = new KndAdapterUser(CekJadwalDriver.this, itemList);
         listViewKendaraan.setAdapter(adapter);
 
+        swipe.setOnRefreshListener(this);
+
         BtnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

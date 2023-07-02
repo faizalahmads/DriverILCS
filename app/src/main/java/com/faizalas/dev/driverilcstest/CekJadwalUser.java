@@ -32,14 +32,13 @@ public class CekJadwalUser extends AppCompatActivity implements SwipeRefreshLayo
     SwipeRefreshLayout swipe;
     List<DataKendaraanUser> itemList = new ArrayList<DataKendaraanUser>();
     KndAdapterUser adapter;
-    Button BtnPesan, BtnDetail, BtnLogout;
+    Button BtnDetail, BtnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cek_jadwal_user);
 
-        BtnPesan = findViewById(R.id.btnPesan);
         BtnDetail = findViewById(R.id.btnDetail);
         BtnLogout = findViewById(R.id.btnLogout);
 
@@ -58,14 +57,6 @@ public class CekJadwalUser extends AppCompatActivity implements SwipeRefreshLayo
         listViewKendaraan.setAdapter(adapter);
 
         swipe.setOnRefreshListener(this);
-
-        BtnPesan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Pesan.class);
-                startActivity(intent);
-            }
-        });
 
         BtnDetail.setOnClickListener(new View.OnClickListener() {
             @Override

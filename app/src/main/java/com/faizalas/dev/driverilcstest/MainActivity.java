@@ -120,24 +120,26 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if (result != null) {
                 String[] splitResult = result.split("\\|");
-                String loginMessage = splitResult[0];
-                String role = splitResult[1];
+                if (splitResult.length >= 2) {
+                    String loginMessage = splitResult[0];
+                    String role = splitResult[1];
 
-                Toast.makeText(MainActivity.this, loginMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, loginMessage, Toast.LENGTH_SHORT).show();
 
-                if (loginMessage.equals("Login berhasil")) {
-                    if (role.equals("1")) {
-                        Intent intent = new Intent(MainActivity.this, DashboardAdmin.class);
-                        startActivity(intent);
-                        finish();
-                    } else if (role.equals("2")) {
-                        Intent intent = new Intent(MainActivity.this, DashboardUser.class);
-                        startActivity(intent);
-                        finish();
+                    if (loginMessage.equals("Login berhasil")) {
+                        if (role.equals("1")) {
+                            Intent intent = new Intent(MainActivity.this, DashboardAdmin.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (role.equals("2")) {
+                            Intent intent = new Intent(MainActivity.this, DashboardUser.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
+                } else {
+                    Toast.makeText(MainActivity.this, "Login Gagal", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(MainActivity.this, "Login gagal", Toast.LENGTH_SHORT).show();
             }
         }
     }

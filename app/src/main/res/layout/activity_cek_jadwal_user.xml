@@ -38,28 +38,15 @@
         android:layout_marginTop="135dp" />
 
     <Button
-        android:id="@+id/btnPesan"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="56dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="310dp"
-        android:background="#C04A07"
-        android:text="Pesan"
-        android:textColor="#FFFFFF"
-        />
-
-    <Button
         android:id="@+id/btnDetail"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="56dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="310dp"
+        android:layout_marginTop="290dp"
         android:background="#1EACAC"
         android:text="Detail"
+        android:textSize="18dp"
         android:textColor="#FFFFFF"
         />
 

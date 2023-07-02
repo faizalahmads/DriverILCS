@@ -8,18 +8,18 @@ import android.view.View;
 import android.widget.Button;
 
 public class DashboardUser extends AppCompatActivity {
-    Button profileUser, cekjadwalUser, btnLogout;
+    Button BtnPesan, BtnCekJadwalUser, BtnLogout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_user);
-        profileUser = findViewById(R.id.btnProfile);
-        cekjadwalUser = findViewById(R.id.btnCekJadwal);
-        btnLogout = findViewById(R.id.btnLogout);
+        BtnCekJadwalUser = findViewById(R.id.btnCekJadwal);
+        BtnPesan = findViewById(R.id.btnPesan);
+        BtnLogout = findViewById(R.id.btnLogout);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        BtnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clearSession();
@@ -27,15 +27,15 @@ public class DashboardUser extends AppCompatActivity {
             }
         });
 
-        profileUser.setOnClickListener(new View.OnClickListener() {
+        BtnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EditProfile.class);
+                Intent intent = new Intent(getApplicationContext(), Pesan.class);
                 startActivity(intent);
             }
         });
 
-        cekjadwalUser.setOnClickListener(new View.OnClickListener() {
+        BtnCekJadwalUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), CekJadwalUser.class);
